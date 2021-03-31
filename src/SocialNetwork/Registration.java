@@ -1,6 +1,7 @@
 package SocialNetwork;
 
 import java.awt.BorderLayout;
+import java.awt.*;
 import java.awt.EventQueue;
 import java.awt.Font;
 
@@ -53,7 +54,10 @@ public class Registration extends JFrame {
 	 */
 	public Registration() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 533, 546);
+		//setBounds(100, 100, 533, 546);
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	    setBounds(0,0,screenSize.width, screenSize.height);
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -88,10 +92,11 @@ public class Registration extends JFrame {
 		passwordField = new JPasswordField();
 		
 		JButton Register = new JButton("Register");
+		
 		Register.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String username = usernameField.getText();
-				String password = passwordField.getPassword().toString();
+				String password = String.valueOf(passwordField.getPassword());
 				String firstName = firstnameField.getText();
 				String lastName = lastnameField.getText();
 				String email = emailField.getText();
@@ -116,58 +121,80 @@ public class Registration extends JFrame {
 		});
 		Register.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		
+		JButton Login = new JButton("Return to Login Page");
+		Login.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Login login = new Login();
+				login.setVisible(true);
+				dispose();
+			}
+		});
+		Login.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(82)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-								.addComponent(email, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(lastName, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(firstName, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(password, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(username, Alignment.LEADING))
-							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGap(567)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(usernameField, GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
-								.addComponent(passwordField)
-								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-									.addComponent(firstnameField, GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
-									.addComponent(lastnameField, GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE)
-									.addComponent(emailField, GroupLayout.PREFERRED_SIZE, 236, GroupLayout.PREFERRED_SIZE))))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addComponent(username)
+									.addGap(6)
+									.addComponent(usernameField, GroupLayout.PREFERRED_SIZE, 236, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addComponent(password, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
+									.addGap(4)
+									.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, 236, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addComponent(firstName)
+									.addGap(4)
+									.addComponent(firstnameField, GroupLayout.PREFERRED_SIZE, 236, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addComponent(lastName, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
+									.addGap(4)
+									.addComponent(lastnameField, GroupLayout.PREFERRED_SIZE, 236, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addComponent(email, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
+									.addGap(4)
+									.addComponent(emailField, GroupLayout.PREFERRED_SIZE, 236, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addGap(135)
+									.addComponent(Register))))
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(135)
-							.addComponent(Register)))
-					.addContainerGap(98, Short.MAX_VALUE))
+							.addContainerGap()
+							.addComponent(Login)))
+					.addContainerGap(616, Short.MAX_VALUE))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(109)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(usernameField)
-						.addComponent(username, GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(passwordField)
-						.addComponent(password, GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE))
-					.addPreferredGap(ComponentPlacement.RELATED)
+					.addContainerGap()
+					.addComponent(Login)
+					.addGap(253)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(username, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
+						.addComponent(usernameField, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE))
+					.addGap(6)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(password, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
+						.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE))
+					.addGap(6)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addComponent(firstName, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
 						.addComponent(firstnameField, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGap(6)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addComponent(lastName, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lastnameField, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGap(6)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(emailField, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
-						.addComponent(email, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(email, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
+						.addComponent(emailField, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE))
+					.addGap(6)
 					.addComponent(Register)
-					.addContainerGap(147, Short.MAX_VALUE))
+					.addContainerGap(290, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
 	}

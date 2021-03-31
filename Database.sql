@@ -8,5 +8,3 @@ create table user
     email varchar(45),
 	password varchar(45)
 );
-
-INSERT INTO user (username,firstName,lastName,email,password) VALUES ('anhuynh','An','Huynh','anhuynh@gmail.com','01072000');
