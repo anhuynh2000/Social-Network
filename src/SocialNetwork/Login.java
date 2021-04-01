@@ -1,28 +1,28 @@
 package SocialNetwork;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Toolkit;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JPasswordField;
-import javax.swing.JButton;
-import javax.swing.LayoutStyle.ComponentPlacement;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.sql.ResultSet;
-import java.awt.event.ActionEvent;
+import java.sql.SQLException;
+
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.border.EmptyBorder;
 
 @SuppressWarnings("serial")
 public class Login extends JFrame {
@@ -73,6 +73,9 @@ public class Login extends JFrame {
 		password.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		
 		passwordField = new JPasswordField();
+				
+		JCheckBox showPassword = new JCheckBox("Show password");
+		
 		
 		JButton Login = new JButton("Login");
 		Login.addActionListener(new ActionListener() {
@@ -94,6 +97,13 @@ public class Login extends JFrame {
 						home.setVisible(true);
 						dispose();
 					}
+					if (e.getSource() == showPassword) {
+						if (showPassword.isSelected()) {
+							passwordField.setEchoChar((char) 0);
+				        } else {
+				        	passwordField.setEchoChar('*');
+				        }
+					 }
 					
 				} catch (SQLException e1) {
 					e1.printStackTrace();
@@ -111,29 +121,27 @@ public class Login extends JFrame {
 			}
 		});
 		Register.setFont(new Font("Times New Roman", Font.BOLD, 20));
-		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(567)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(username, GroupLayout.PREFERRED_SIZE, 87, GroupLayout.PREFERRED_SIZE)
-									.addGap(6)
-									.addComponent(usernameField, GroupLayout.PREFERRED_SIZE, 236, GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(password, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
-									.addGap(4)
-									.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, 236, GroupLayout.PREFERRED_SIZE))))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(643)
-							.addComponent(Login)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(Register)))
-					.addContainerGap(616, Short.MAX_VALUE))
+					.addGap(567)
+					.addComponent(username)
+					.addGap(6)
+					.addComponent(usernameField, GroupLayout.PREFERRED_SIZE, 236, GroupLayout.PREFERRED_SIZE))
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(567)
+					.addComponent(password, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
+					.addGap(4)
+					.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, 236, GroupLayout.PREFERRED_SIZE))
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(721)
+					.addComponent(showPassword, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE))
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(671)
+					.addComponent(Login)
+					.addGap(27)
+					.addComponent(Register))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -146,11 +154,12 @@ public class Login extends JFrame {
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addComponent(password, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
 						.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGap(11)
+					.addComponent(showPassword)
+					.addGap(6)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addComponent(Login)
-						.addComponent(Register))
-					.addContainerGap(416, Short.MAX_VALUE))
+						.addComponent(Register)))
 		);
 		contentPane.setLayout(gl_contentPane);
 	}
