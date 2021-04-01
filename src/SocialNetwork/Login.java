@@ -123,6 +123,7 @@ public class Login extends JFrame {
 				Registration registration = new Registration();
 				registration.setVisible(true);
 				dispose();
+				//qweji
 			}
 		});
 		Register.setFont(new Font("Times New Roman", Font.BOLD, 20));
