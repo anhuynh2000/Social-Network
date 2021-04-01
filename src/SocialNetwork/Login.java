@@ -76,6 +76,18 @@ public class Login extends JFrame {
 				
 		JCheckBox showPassword = new JCheckBox("Show password");
 		
+		showPassword.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				if (e.getSource() == showPassword) {
+					if (showPassword.isSelected()) {
+						passwordField.setEchoChar((char) 0);
+			        } else {
+			        	passwordField.setEchoChar('*');
+			        }
+				 }
+			}
+		});
+		
 		
 		JButton Login = new JButton("Login");
 		Login.addActionListener(new ActionListener() {
@@ -97,13 +109,6 @@ public class Login extends JFrame {
 						home.setVisible(true);
 						dispose();
 					}
-					if (e.getSource() == showPassword) {
-						if (showPassword.isSelected()) {
-							passwordField.setEchoChar((char) 0);
-				        } else {
-				        	passwordField.setEchoChar('*');
-				        }
-					 }
 					
 				} catch (SQLException e1) {
 					e1.printStackTrace();
