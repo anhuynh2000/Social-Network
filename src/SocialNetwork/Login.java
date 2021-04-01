@@ -73,8 +73,21 @@ public class Login extends JFrame {
 		password.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		
 		passwordField = new JPasswordField();
-				
+		
 		JCheckBox showPassword = new JCheckBox("Show password");
+		showPassword.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		
+		showPassword.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				if (e.getSource() == showPassword) {
+					if (showPassword.isSelected()) {
+						passwordField.setEchoChar((char) 0);
+			        } else {
+			        	passwordField.setEchoChar('*');
+			        }
+				 }
+			}
+		});
 		
 		
 		JButton Login = new JButton("Login");
@@ -97,13 +110,6 @@ public class Login extends JFrame {
 						home.setVisible(true);
 						dispose();
 					}
-					if (e.getSource() == showPassword) {
-						if (showPassword.isSelected()) {
-							passwordField.setEchoChar((char) 0);
-				        } else {
-				        	passwordField.setEchoChar('*');
-				        }
-					 }
 					
 				} catch (SQLException e1) {
 					e1.printStackTrace();
@@ -125,23 +131,27 @@ public class Login extends JFrame {
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(567)
-					.addComponent(username)
-					.addGap(6)
-					.addComponent(usernameField, GroupLayout.PREFERRED_SIZE, 236, GroupLayout.PREFERRED_SIZE))
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(567)
-					.addComponent(password, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
-					.addGap(4)
-					.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, 236, GroupLayout.PREFERRED_SIZE))
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(721)
-					.addComponent(showPassword, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE))
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(671)
-					.addComponent(Login)
-					.addGap(27)
-					.addComponent(Register))
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(567)
+							.addComponent(username)
+							.addGap(6)
+							.addComponent(usernameField, GroupLayout.PREFERRED_SIZE, 236, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(567)
+							.addComponent(password, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
+							.addGap(4)
+							.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, 236, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(671)
+							.addComponent(Login)
+							.addGap(27)
+							.addComponent(Register)))
+					.addContainerGap(616, Short.MAX_VALUE))
+				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+					.addContainerGap(695, Short.MAX_VALUE)
+					.addComponent(showPassword)
+					.addGap(658))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -156,7 +166,7 @@ public class Login extends JFrame {
 						.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE))
 					.addGap(11)
 					.addComponent(showPassword)
-					.addGap(6)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addComponent(Login)
 						.addComponent(Register)))
