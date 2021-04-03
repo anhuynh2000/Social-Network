@@ -64,17 +64,22 @@ public class Login extends JFrame {
 		setContentPane(contentPane);
 		
 		JLabel username = new JLabel("Username");
+		username.setBounds(572, 289, 87, 36);
 		username.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		
 		usernameField = new JTextField();
+		usernameField.setBounds(665, 289, 236, 36);
 		usernameField.setColumns(10);
 		
 		JLabel password = new JLabel("Password");
+		password.setBounds(572, 331, 89, 36);
 		password.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		
 		passwordField = new JPasswordField();
+		passwordField.setBounds(665, 331, 236, 36);
 		
 		JCheckBox showPassword = new JCheckBox("Show password");
+		showPassword.setBounds(700, 378, 159, 33);
 		showPassword.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		
 		showPassword.addActionListener(new ActionListener(){
@@ -91,6 +96,7 @@ public class Login extends JFrame {
 		
 		
 		JButton Login = new JButton("Login");
+		Login.setBounds(676, 417, 83, 33);
 		Login.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String username = usernameField.getText();
@@ -119,6 +125,7 @@ public class Login extends JFrame {
 		Login.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		
 		JButton Register = new JButton("Register");
+		Register.setBounds(786, 417, 105, 33);
 		Register.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Registration registration = new Registration();
@@ -127,50 +134,13 @@ public class Login extends JFrame {
 			}
 		});
 		Register.setFont(new Font("Times New Roman", Font.BOLD, 20));
-		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(567)
-							.addComponent(username)
-							.addGap(6)
-							.addComponent(usernameField, GroupLayout.PREFERRED_SIZE, 236, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(567)
-							.addComponent(password, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
-							.addGap(4)
-							.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, 236, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(671)
-							.addComponent(Login)
-							.addGap(27)
-							.addComponent(Register)))
-					.addContainerGap(616, Short.MAX_VALUE))
-				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-					.addContainerGap(695, Short.MAX_VALUE)
-					.addComponent(showPassword)
-					.addGap(658))
-		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(284)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(username, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
-						.addComponent(usernameField, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE))
-					.addGap(6)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(password, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
-						.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE))
-					.addGap(11)
-					.addComponent(showPassword)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(Login)
-						.addComponent(Register)))
-		);
-		contentPane.setLayout(gl_contentPane);
+		contentPane.setLayout(null);
+		contentPane.add(username);
+		contentPane.add(usernameField);
+		contentPane.add(password);
+		contentPane.add(passwordField);
+		contentPane.add(Login);
+		contentPane.add(Register);
+		contentPane.add(showPassword);
 	}
 }
