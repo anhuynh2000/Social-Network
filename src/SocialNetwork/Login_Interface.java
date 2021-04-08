@@ -28,7 +28,7 @@ public class Login_Interface extends JFrame {
 	static int width = 755, height = 575;
 
 	private JPanel contentPane;
-	private JTextField textField;
+	private JTextField usernameField;
 	private JPasswordField passwordField;
 
 	/**
@@ -51,15 +51,12 @@ public class Login_Interface extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Dimension getPreferredSize() {
-        return new Dimension(350, 300);
-    }
-	
+
 	public Login_Interface() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	    
-		setBounds(100, 100, 891, 575);
+		setBounds(100, 100, 890, 575);
 
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -67,54 +64,51 @@ public class Login_Interface extends JFrame {
 		contentPane.setLayout(null);
 		
 		JPanel logo_panel = new JPanel();
-		int w_panel = width/2, h_panel = height;
 		
 		logo_panel.setBackground(UIManager.getColor("TextField.background"));
-		logo_panel.setBounds(0, 0, 449, 538);
+		logo_panel.setBounds(0, 0, 450, 540);
 		contentPane.add(logo_panel);
 		logo_panel.setLayout(null);
 		
-		JLabel Logo_name = new JLabel("");
-		Logo_name.setBounds(151, 338, 200, 200);
-		Logo_name.setIcon(new ImageIcon(Login_Interface.class.getResource("/SocialNetwork/Image/Logo.png")));
-		logo_panel.add(Logo_name);
-		
-		JLabel Logo_butterfly = new JLabel("");
-		Logo_butterfly.setBounds(0, 10, 439, 456);
-		logo_panel.add(Logo_butterfly);
-		Logo_butterfly.setBackground(SystemColor.textHighlightText);
-		Logo_butterfly.setIcon(new ImageIcon(Login_Interface.class.getResource("/SocialNetwork/Image/Logo_butterfly.jpg")));
+		JLabel Logo = new JLabel("");
+		Logo.setIcon(new ImageIcon(Login_Interface.class.getResource("/SocialNetwork/Image/Logo_buttefly.jpg")));
+		Logo.setBounds(0, 0, 450, 451);
+		logo_panel.add(Logo);
 		
 		JPanel login_panel = new JPanel();
-		login_panel.setBackground(new Color(255, 235, 205));
-		login_panel.setBounds(448, 0, 429, 538);
+		login_panel.setBackground(new Color(251, 238, 230));
+		login_panel.setBounds(450, 0, 430, 540);
 		contentPane.add(login_panel);
 		login_panel.setLayout(null);
 		
 		JLabel username = new JLabel("Username");
-		username.setForeground(new Color(205, 92, 92));
+		username.setForeground(new Color(243, 171, 182));
 		username.setFont(new Font("Comic Sans MS", Font.BOLD, 20));
 		username.setBounds(25, 203, 118, 36);
 		login_panel.add(username);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(131, 203, 236, 36);
-		login_panel.add(textField);
+		usernameField = new JTextField();
+		usernameField.setColumns(10);
+		usernameField.setSelectedTextColor(new Color(255, 0, 0));
+		usernameField.setSelectionColor(new Color(251, 238, 230));
+		usernameField.setBounds(131, 203, 236, 36);
+		login_panel.add(usernameField);
 		
 		JLabel password = new JLabel("Password");
-		password.setForeground(new Color(205, 92, 92));
+		password.setForeground(new Color(243, 171, 182));
 		password.setFont(new Font("Comic Sans MS", Font.BOLD, 20));
 		password.setBounds(25, 245, 118, 36);
 		login_panel.add(password);
 		
 		passwordField = new JPasswordField();
+		passwordField.setSelectedTextColor(new Color(255, 0, 0));
+		passwordField.setSelectionColor(new Color(251, 238, 230));
 		passwordField.setBounds(131, 245, 236, 36);
 		login_panel.add(passwordField);
 		
 		JCheckBox showPassword = new JCheckBox("");
 		showPassword.setFont(new Font("Comic Sans MS", Font.PLAIN, 10));
-		showPassword.setBackground(new Color(255, 235, 205));
+		showPassword.setBackground(new Color(251, 238, 230));
 		showPassword.setHorizontalAlignment(SwingConstants.CENTER);
 		showPassword.setBounds(373, 255, 27, 21);
 		showPassword.addActionListener(new ActionListener(){
@@ -133,23 +127,28 @@ public class Login_Interface extends JFrame {
 		
 		
 		JButton Login = new JButton("Login");
-		Login.setBackground(new Color(255, 228, 225));
-		Login.setForeground(new Color(205, 92, 92));
+		Login.setBackground(new Color(159, 129, 137));
+		Login.setForeground(new Color(255, 202, 212));
 		Login.setFont(new Font("Comic Sans MS", Font.BOLD, 20));
 		Login.setBounds(131, 326, 83, 33);
 		login_panel.add(Login);
 		
 		JButton Register = new JButton("Register");
-		Register.setForeground(new Color(205, 92, 92));
-		Register.setBackground(new Color(255, 228, 225));
+		Register.setBackground(new Color(255, 202, 212));
+		Register.setForeground(new Color(159, 129, 137));
 		Register.setFont(new Font("Comic Sans MS", Font.BOLD, 20));
-		Register.setBounds(242, 326, 118, 33);
+		Register.setBounds(249, 326, 118, 33);
 		login_panel.add(Register);
 		
-		JLabel lblNewLabel = new JLabel("Login");
-		lblNewLabel.setFont(new Font("October Twilight", Font.PLAIN, 40));
-		lblNewLabel.setForeground(new Color(205, 92, 92));
-		lblNewLabel.setBounds(162, 89, 128, 74);
-		login_panel.add(lblNewLabel);
+		JLabel Login_text = new JLabel("Login");
+		Login_text.setFont(new Font("October Twilight", Font.PLAIN, 40));
+		Login_text.setForeground(new Color(242, 141, 156));
+		Login_text.setBounds(162, 89, 128, 74);
+		login_panel.add(Login_text);
+		
+		JLabel Logo_name = new JLabel("");
+		Logo_name.setBounds(126, 487, 194, 43);
+		login_panel.add(Logo_name);
+		Logo_name.setIcon(new ImageIcon(Login_Interface.class.getResource("/SocialNetwork/Image/Logo.png")));
 	}
 }
