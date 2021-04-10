@@ -26,7 +26,7 @@ import javax.swing.border.EmptyBorder;
 
 @SuppressWarnings("serial")
 public class Login extends JFrame {
-	private static String DB_URL = "jdbc:mysql://172.20.10.2:3306/social_network";
+	private static String DB_URL = "jdbc:mysql://10.124.2.137:3306/social_network";
 	private static String USER_NAME = "sa";
 	private static String PASSWORD = "abcd1234";
 	

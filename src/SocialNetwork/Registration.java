@@ -29,8 +29,8 @@ public class Registration extends JFrame {
 	private JTextField emailField;
 	private JPasswordField passwordField;
 	
-	private static String DB_URL = "jdbc:mysql://localhost:3306/social_network";
-	private static String USER_NAME = "root";
+	private static String DB_URL = "jdbc:mysql://10.124.2.137:3306/social_network";
+	private static String USER_NAME = "sa";
 	private static String PASSWORD = "abcd1234";
 	
 	/**
