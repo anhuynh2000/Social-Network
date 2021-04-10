@@ -71,7 +71,7 @@ public class Login_Interface extends JFrame {
 		logo_panel.setLayout(null);
 		
 		JLabel Logo = new JLabel("");
-		Logo.setIcon(new ImageIcon(Login_Interface.class.getResource("/SocialNetwork/Image/Logo_buttefly.jpg")));
+		Logo.setIcon(new ImageIcon(Login_Interface.class.getResource("/SocialNetwork/Image/Logo_butterfly.jpg")));
 		Logo.setBounds(0, 0, 450, 451);
 		logo_panel.add(Logo);
 		
