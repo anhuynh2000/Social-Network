@@ -11,6 +11,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -18,6 +19,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -26,7 +28,7 @@ import javax.swing.border.EmptyBorder;
 
 @SuppressWarnings("serial")
 public class Login extends JFrame {
-	private static String DB_URL = "jdbc:mysql://10.124.2.137:3306/social_network";
+	private static String DB_URL = "jdbc:mysql://localhost:3306/social_network";
 	private static String USER_NAME = "sa";
 	private static String PASSWORD = "abcd1234";
 	
@@ -101,10 +103,10 @@ public class Login extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String username = usernameField.getText();
 				String password = String.valueOf(passwordField.getPassword());
-				
+				boolean flag = false;
 				try {
 					Connection cnn = DriverManager.getConnection(DB_URL, USER_NAME, PASSWORD);
-					String updateQuery = "SELECT username, password FROM user WHERE username=? AND password=?";
+					/*String updateQuery = "SELECT username, password FROM user WHERE username=? AND password=?";
 					PreparedStatement ps = cnn.prepareStatement(updateQuery);
 					
 					ps.setString(1, username);
@@ -115,7 +117,28 @@ public class Login extends JFrame {
 						Home home = new Home();
 						home.setVisible(true);
 						dispose();
+					}*/
+					String updateQuery = "SELECT userId,username, password FROM user";
+					PreparedStatement ps = cnn.prepareStatement(updateQuery);
+					ResultSet results = ps.executeQuery(updateQuery);
+					
+					while (results.next()) {
+				        String userName = results.getString("username");
+				        String passWord =  results.getString("password");
+
+			           if ((username.equals(userName)) && (password.equals(passWord))) {
+			        	   	flag = true;
+			        	   	JOptionPane.showMessageDialog(null, "Username and Password exist");
+		        	   		Home home = new Home(results.getString("userId"));
+			        	   	home.setVisible(true);
+			        	   	dispose();
+				        } 
+				        
+				        if(!flag){
+				        	JOptionPane.showMessageDialog(null, "Please Check Username and Password");
+				        }
 					}
+					results.close();
 					
 				} catch (SQLException e1) {
 					e1.printStackTrace();
