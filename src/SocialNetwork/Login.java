@@ -1,5 +1,6 @@
 package SocialNetwork;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -14,6 +15,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import javax.swing.GroupLayout;
+import javax.swing.ImageIcon;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -23,6 +25,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
@@ -56,34 +60,74 @@ public class Login extends JFrame {
 	 * Create the frame.
 	 */
 	public Login() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//setBounds(100, 100, 450, 300);
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-	    setBounds(0,0,screenSize.width, screenSize.height);
-		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
+	    
+		setBounds(100, 100, 890, 575);
+
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JPanel logo_panel = new JPanel();
+		
+		logo_panel.setBackground(UIManager.getColor("TextField.background"));
+		logo_panel.setBounds(0, 0, 450, 540);
+		contentPane.add(logo_panel);
+		logo_panel.setLayout(null);
+		
+		JLabel Logo = new JLabel("");
+		Logo.setIcon(new ImageIcon(Login.class.getResource("/SocialNetwork/Image/Logo_buttefly.jpg")));
+		Logo.setBounds(0, 0, 450, 450);
+		logo_panel.add(Logo);
+		
+		JPanel login_panel = new JPanel();
+		login_panel.setBackground(new Color(251, 238, 230));
+		login_panel.setBounds(450, 0, 430, 540);
+		contentPane.add(login_panel);
+		login_panel.setLayout(null);
+		
+		JLabel Login_text = new JLabel("Login");
+		Login_text.setFont(new Font("October Twilight", Font.PLAIN, 40));
+		Login_text.setForeground(new Color(242, 141, 156));
+		Login_text.setBounds(162, 89, 128, 74);
+		login_panel.add(Login_text);
+		
+		JLabel Logo_name = new JLabel("");
+		Logo_name.setBounds(126, 487, 194, 43);
+		login_panel.add(Logo_name);
+		Logo_name.setIcon(new ImageIcon(Login.class.getResource("/SocialNetwork/Image/Logo.png")));
 		
 		JLabel username = new JLabel("Username");
-		username.setBounds(572, 289, 87, 36);
-		username.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		username.setForeground(new Color(243, 171, 182));
+		username.setFont(new Font("Comic Sans MS", Font.BOLD, 20));
+		username.setBounds(25, 203, 118, 36);
+		login_panel.add(username);
 		
 		usernameField = new JTextField();
-		usernameField.setBounds(665, 289, 236, 36);
 		usernameField.setColumns(10);
+		usernameField.setSelectedTextColor(new Color(255, 0, 0));
+		usernameField.setSelectionColor(new Color(251, 238, 230));
+		usernameField.setBounds(131, 203, 236, 36);
+		login_panel.add(usernameField);
 		
 		JLabel password = new JLabel("Password");
-		password.setBounds(572, 331, 89, 36);
-		password.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		password.setForeground(new Color(243, 171, 182));
+		password.setFont(new Font("Comic Sans MS", Font.BOLD, 20));
+		password.setBounds(25, 245, 118, 36);
+		login_panel.add(password);
 		
 		passwordField = new JPasswordField();
-		passwordField.setBounds(665, 331, 236, 36);
+		passwordField.setSelectedTextColor(new Color(255, 0, 0));
+		passwordField.setSelectionColor(new Color(251, 238, 230));
+		passwordField.setBounds(131, 245, 236, 36);
+		login_panel.add(passwordField);
 		
-		JCheckBox showPassword = new JCheckBox("Show password");
-		showPassword.setBounds(700, 378, 159, 33);
-		showPassword.setFont(new Font("Times New Roman", Font.BOLD, 20));
-		
+		JCheckBox showPassword = new JCheckBox("");
+		showPassword.setFont(new Font("Comic Sans MS", Font.PLAIN, 10));
+		showPassword.setBackground(new Color(251, 238, 230));
+		showPassword.setHorizontalAlignment(SwingConstants.CENTER);
+		showPassword.setBounds(373, 255, 27, 21);
 		showPassword.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				if (e.getSource() == showPassword) {
@@ -95,10 +139,14 @@ public class Login extends JFrame {
 				 }
 			}
 		});
+		login_panel.add(showPassword);
 		
 		
 		JButton Login = new JButton("Login");
-		Login.setBounds(676, 417, 83, 33);
+		Login.setBackground(new Color(159, 129, 137));
+		Login.setForeground(new Color(255, 202, 212));
+		Login.setFont(new Font("Comic Sans MS", Font.BOLD, 20));
+		Login.setBounds(131, 326, 83, 33);
 		Login.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String username = usernameField.getText();
@@ -145,10 +193,12 @@ public class Login extends JFrame {
 				}
 			}
 		});
-		Login.setFont(new Font("Times New Roman", Font.BOLD, 20));
-		
-		JButton Register = new JButton("Register");
-		Register.setBounds(786, 417, 105, 33);
+		login_panel.add(Login);
+				JButton Register = new JButton("Register");
+		Register.setBackground(new Color(255, 202, 212));
+		Register.setForeground(new Color(159, 129, 137));
+		Register.setFont(new Font("Comic Sans MS", Font.BOLD, 20));
+		Register.setBounds(249, 326, 118, 33);
 		Register.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Registration registration = new Registration();
@@ -156,14 +206,7 @@ public class Login extends JFrame {
 				dispose();
 			}
 		});
-		Register.setFont(new Font("Times New Roman", Font.BOLD, 20));
-		contentPane.setLayout(null);
-		contentPane.add(username);
-		contentPane.add(usernameField);
-		contentPane.add(password);
-		contentPane.add(passwordField);
-		contentPane.add(Login);
-		contentPane.add(Register);
-		contentPane.add(showPassword);
+		login_panel.add(Register);
+	
 	}
 }
