@@ -75,7 +75,7 @@ setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		logo_panel.setLayout(null);
 		
 		JLabel Logo = new JLabel("");
-		Logo.setIcon(new ImageIcon(Login_Interface.class.getResource("/SocialNetwork/Image/Logo_buttefly.jpg")));
+		Logo.setIcon(new ImageIcon(Login.class.getResource("/SocialNetwork/Image/Logo_buttefly.jpg")));
 		Logo.setBounds(0, 0, 450, 450);
 		logo_panel.add(Logo);
 		
@@ -94,7 +94,7 @@ setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		JLabel Logo_name = new JLabel("");
 		Logo_name.setBounds(126, 487, 194, 43);
 		login_panel.add(Logo_name);
-		Logo_name.setIcon(new ImageIcon(Login_Interface.class.getResource("/SocialNetwork/Image/Logo.png")));
+		Logo_name.setIcon(new ImageIcon(Login.class.getResource("/SocialNetwork/Image/Logo.png")));
 		
 		JLabel username = new JLabel("Username");
 		username.setForeground(new Color(243, 171, 182));
