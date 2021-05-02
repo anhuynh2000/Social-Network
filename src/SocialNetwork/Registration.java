@@ -54,7 +54,6 @@ public class Registration extends JFrame {
 	 */
 	public Registration() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//setBounds(100, 100, 533, 546);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	    setBounds(0,0,screenSize.width, screenSize.height);
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -63,35 +62,46 @@ public class Registration extends JFrame {
 		setContentPane(contentPane);
 		
 		JLabel username = new JLabel("Username");
+		username.setBounds(572, 301, 87, 36);
 		username.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		
 		JLabel password = new JLabel("Password");
+		password.setBounds(572, 343, 89, 36);
 		password.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		
 		JLabel firstName = new JLabel("Firstname");
+		firstName.setBounds(572, 385, 89, 36);
 		firstName.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		
 		JLabel lastName = new JLabel("Lastname");
+		lastName.setBounds(572, 427, 89, 36);
 		lastName.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		
 		JLabel email = new JLabel("Email");
+		email.setBounds(572, 469, 89, 36);
 		email.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		
 		usernameField = new JTextField();
+		usernameField.setBounds(665, 301, 236, 36);
 		usernameField.setColumns(10);
 		
 		firstnameField = new JTextField();
+		firstnameField.setBounds(665, 385, 236, 36);
 		firstnameField.setColumns(10);
 		
 		lastnameField = new JTextField();
+		lastnameField.setBounds(665, 427, 236, 36);
 		lastnameField.setColumns(10);
 		
 		emailField = new JTextField();
+		emailField.setBounds(665, 469, 236, 36);
 		emailField.setColumns(10);
 		
 		passwordField = new JPasswordField();
+		passwordField.setBounds(665, 343, 236, 36);
 		
 		JButton Register = new JButton("Register");
+		Register.setBounds(707, 511, 105, 33);
 		
 		Register.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -122,6 +132,7 @@ public class Registration extends JFrame {
 		Register.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		
 		JButton Login = new JButton("Return to Login Page");
+		Login.setBounds(15, 15, 215, 33);
 		Login.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Login login = new Login();
@@ -130,73 +141,19 @@ public class Registration extends JFrame {
 			}
 		});
 		Login.setFont(new Font("Times New Roman", Font.BOLD, 20));
-		
-		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(567)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(username)
-									.addGap(6)
-									.addComponent(usernameField, GroupLayout.PREFERRED_SIZE, 236, GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(password, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
-									.addGap(4)
-									.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, 236, GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(firstName)
-									.addGap(4)
-									.addComponent(firstnameField, GroupLayout.PREFERRED_SIZE, 236, GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(lastName, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
-									.addGap(4)
-									.addComponent(lastnameField, GroupLayout.PREFERRED_SIZE, 236, GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addComponent(email, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
-									.addGap(4)
-									.addComponent(emailField, GroupLayout.PREFERRED_SIZE, 236, GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_contentPane.createSequentialGroup()
-									.addGap(135)
-									.addComponent(Register))))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(Login)))
-					.addContainerGap(616, Short.MAX_VALUE))
-		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(Login)
-					.addGap(253)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(username, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
-						.addComponent(usernameField, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE))
-					.addGap(6)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(password, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
-						.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE))
-					.addGap(6)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(firstName, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
-						.addComponent(firstnameField, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE))
-					.addGap(6)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(lastName, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lastnameField, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE))
-					.addGap(6)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(email, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
-						.addComponent(emailField, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE))
-					.addGap(6)
-					.addComponent(Register)
-					.addContainerGap(290, Short.MAX_VALUE))
-		);
-		contentPane.setLayout(gl_contentPane);
+		contentPane.setLayout(null);
+		contentPane.add(username);
+		contentPane.add(usernameField);
+		contentPane.add(password);
+		contentPane.add(passwordField);
+		contentPane.add(firstName);
+		contentPane.add(firstnameField);
+		contentPane.add(lastName);
+		contentPane.add(lastnameField);
+		contentPane.add(email);
+		contentPane.add(emailField);
+		contentPane.add(Register);
+		contentPane.add(Login);
 	}
 
 }

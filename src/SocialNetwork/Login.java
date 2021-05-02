@@ -31,7 +31,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 
 @SuppressWarnings("serial")
-public class Login extends JFrame {
+public class Login extends JFrame implements ActionListener {
 	private static String DB_URL = "jdbc:mysql://localhost:3306/social_network";
 	private static String USER_NAME = "sa";
 	private static String PASSWORD = "abcd1234";
@@ -39,6 +39,9 @@ public class Login extends JFrame {
 	private JPanel contentPane;
 	private JTextField usernameField;
 	private JPasswordField passwordField;
+	
+	private JButton Login_btn, Register;
+	private JCheckBox showPassword;
 
 	/**
 	 * Launch the application.
@@ -60,8 +63,7 @@ public class Login extends JFrame {
 	 * Create the frame.
 	 */
 	public Login() {
-setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
-	    
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
 		setBounds(100, 100, 890, 575);
 
 		contentPane = new JPanel();
@@ -77,7 +79,7 @@ setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		logo_panel.setLayout(null);
 		
 		JLabel Logo = new JLabel("");
-		Logo.setIcon(new ImageIcon(Login.class.getResource("/SocialNetwork/Image/Logo_buttefly.jpg")));
+		Logo.setIcon(new ImageIcon(Login.class.getResource("/SocialNetwork/Image/Logo_butterfly.jpg")));
 		Logo.setBounds(0, 0, 450, 450);
 		logo_panel.add(Logo);
 		
@@ -90,7 +92,7 @@ setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		JLabel Login_text = new JLabel("Login");
 		Login_text.setFont(new Font("October Twilight", Font.PLAIN, 40));
 		Login_text.setForeground(new Color(242, 141, 156));
-		Login_text.setBounds(162, 89, 128, 74);
+		Login_text.setBounds(165, 89, 128, 74);
 		login_panel.add(Login_text);
 		
 		JLabel Logo_name = new JLabel("");
@@ -123,90 +125,93 @@ setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		passwordField.setBounds(131, 245, 236, 36);
 		login_panel.add(passwordField);
 		
-		JCheckBox showPassword = new JCheckBox("");
+		showPassword = new JCheckBox("");
 		showPassword.setFont(new Font("Comic Sans MS", Font.PLAIN, 10));
 		showPassword.setBackground(new Color(251, 238, 230));
 		showPassword.setHorizontalAlignment(SwingConstants.CENTER);
 		showPassword.setBounds(373, 255, 27, 21);
-		showPassword.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e) {
-				if (e.getSource() == showPassword) {
-					if (showPassword.isSelected()) {
-						passwordField.setEchoChar((char) 0);
-			        } else {
-			        	passwordField.setEchoChar('*');
-			        }
-				 }
-			}
-		});
+		showPassword.addActionListener(this);
 		login_panel.add(showPassword);
 		
 		
-		JButton Login = new JButton("Login");
-		Login.setBackground(new Color(159, 129, 137));
-		Login.setForeground(new Color(255, 202, 212));
-		Login.setFont(new Font("Comic Sans MS", Font.BOLD, 20));
-		Login.setBounds(131, 326, 83, 33);
-		Login.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String username = usernameField.getText();
-				String password = String.valueOf(passwordField.getPassword());
-				boolean flag = false;
-				try {
-					Connection cnn = DriverManager.getConnection(DB_URL, USER_NAME, PASSWORD);
-					/*String updateQuery = "SELECT username, password FROM user WHERE username=? AND password=?";
-					PreparedStatement ps = cnn.prepareStatement(updateQuery);
-					
-					ps.setString(1, username);
-					ps.setString(2, password);
-					
-					ResultSet res = ps.executeQuery();
-					if (res.next()) {
-						Home home = new Home();
-						home.setVisible(true);
-						dispose();
-					}*/
-					String updateQuery = "SELECT userId,username, password FROM user";
-					PreparedStatement ps = cnn.prepareStatement(updateQuery);
-					ResultSet results = ps.executeQuery(updateQuery);
-					
-					while (results.next()) {
-				        String userName = results.getString("username");
-				        String passWord =  results.getString("password");
-
-			           if ((username.equals(userName)) && (password.equals(passWord))) {
-			        	   	flag = true;
-			        	   	JOptionPane.showMessageDialog(null, "Username and Password exist");
-		        	   		Home home = new Home(results.getString("userId"));
-			        	   	home.setVisible(true);
-			        	   	dispose();
-				        } 
-				        
-				        if(!flag){
-				        	JOptionPane.showMessageDialog(null, "Please Check Username and Password");
-				        }
-					}
-					results.close();
-					
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
-			}
-		});
-		login_panel.add(Login);
-				JButton Register = new JButton("Register");
+		Login_btn = new JButton("Login");
+		Login_btn.setBackground(new Color(159, 129, 137));
+		Login_btn.setForeground(new Color(255, 202, 212));
+		Login_btn.setFont(new Font("Comic Sans MS", Font.BOLD, 20));
+		Login_btn.setBounds(131, 326, 83, 33);
+		Login_btn.addActionListener(this);
+			
+		login_panel.add(Login_btn);
+		
+		Register = new JButton("Register");
 		Register.setBackground(new Color(255, 202, 212));
 		Register.setForeground(new Color(159, 129, 137));
 		Register.setFont(new Font("Comic Sans MS", Font.BOLD, 20));
 		Register.setBounds(249, 326, 118, 33);
-		Register.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Registration registration = new Registration();
-				registration.setVisible(true);
-				dispose();
-			}
-		});
+		Register.addActionListener(this);
 		login_panel.add(Register);
 	
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if (e.getSource() == Login_btn) {
+			String username = usernameField.getText();
+			String password = String.valueOf(passwordField.getPassword());
+			boolean flag_user = false;
+			boolean flag_pass = false;
+			
+			try {
+				Connection cnn = DriverManager.getConnection(DB_URL, USER_NAME, PASSWORD);
+				String updateQuery = "SELECT userId,username, password FROM user";
+				PreparedStatement ps = cnn.prepareStatement(updateQuery);
+				ResultSet results = ps.executeQuery(updateQuery);
+				
+				while (results.next()) {
+			        String userName = results.getString("username");
+			        String passWord =  results.getString("password");
+
+			       if (username.equals(userName)) {
+			    	   flag_user = true;
+			       }
+			       if (password.equals(passWord)) {
+			    	   flag_pass = true;
+			       }
+			       
+		           if (flag_user) {
+		        	   if (flag_pass) {
+		        		   JOptionPane.showMessageDialog(passwordField, "Your username and password exist.");
+		        		   Home home = new Home(results.getString("userId"));
+			        	   home.setVisible(true);
+			        	   dispose();
+		        	   } else {
+		        		   JOptionPane.showMessageDialog(passwordField, "Please check your password.");
+		        	   }
+			        } else {
+			        	JOptionPane.showMessageDialog(passwordField, "Please check your username and password.");
+			        }
+			        
+				}
+				results.close();
+				
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+		}
+		
+		if (e.getSource() == Register) {
+			Registration_Interface registration = new Registration_Interface();
+			registration.setVisible(true);
+			dispose();
+		}
+		
+		if (e.getSource() == showPassword) {
+			if (showPassword.isSelected()) {
+				passwordField.setEchoChar((char) 0);
+	        } else {
+	        	passwordField.setEchoChar('*');
+	        }
+		 }
 	}
 }
