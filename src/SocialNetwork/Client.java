@@ -49,12 +49,12 @@ public class Client {
 
     private void run() throws IOException {
         try {
-            var socket = new Socket(InetAddress.getLocalHost(), Config.PORT);
+            Socket socket = new Socket(InetAddress.getLocalHost(), Config.PORT);
             in = new Scanner(socket.getInputStream());
             out = new PrintWriter(socket.getOutputStream(), true);
 
             while (in.hasNextLine()) {
-                var line = in.nextLine();
+                String line = in.nextLine();
                 if (line.startsWith("SUBMIT NAME")) {
                     out.println(getName());
                 } else if (line.startsWith("NAME ACCEPTED")) {
