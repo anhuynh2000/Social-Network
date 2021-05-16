@@ -181,15 +181,15 @@ public class Login extends JFrame implements ActionListener {
 			       
 		           if (flag_user) {
 		        	   if (flag_pass) {
-		        		   JOptionPane.showMessageDialog(passwordField, "Your username and password exist.");
-		        		   Home home = new Home(results.getString("userId"));
+//		        		   JOptionPane.showMessageDialog(passwordField, "Your username and password exist.");
+		        		   Home home = new Home(results.getString("userName"));
 			        	   home.setVisible(true);
 			        	   dispose();
-		        	   } else {
-		        		   JOptionPane.showMessageDialog(passwordField, "Please check your password.");
+//		        	   } else {
+//		        		   JOptionPane.showMessageDialog(passwordField, "Please check your password.");
 		        	   }
-			        } else {
-			        	JOptionPane.showMessageDialog(passwordField, "Please check your username and password.");
+//			        } else {
+//			        	JOptionPane.showMessageDialog(passwordField, "Please check your username and password.");
 			        }
 			        
 				}
