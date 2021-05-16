@@ -1,4 +1,4 @@
-package Social_Net;
+package SocialNetwork;
 
 import java.io.IOException;
 import java.io.PrintWriter;

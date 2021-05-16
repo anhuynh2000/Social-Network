@@ -139,8 +139,24 @@ public class Home extends JFrame implements ActionListener {
 		usernameDisplay.setBounds(1330, 5, 110, 50);
 		headerPane.add(usernameDisplay);
 		
-		String list[] = {"Đổi mật khẩu", "Đăng xuất"};
+		JPanel mainPane = new JPanel();
+		mainPane.setBackground(new Color(255, 228, 225));
+		mainPane.setBounds(5, 72, 1543, 864);
+		contentPane.add(mainPane);
+		mainPane.setLayout(null);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setBounds(215, 137, 1097, 661);
+		mainPane.add(scrollPane);
+		
+		String list[] = {"Làm mới trang", "Đổi mật khẩu", "Đăng xuất"};
 
+		JPanel newsfeedPanel = new JPanel();
+		scrollPane.setViewportView(newsfeedPanel);
+		newsfeedPanel.setBackground(new Color(242, 141, 156));
+		newsfeedPanel.setLayout(new BoxLayout(newsfeedPanel, BoxLayout.Y_AXIS));
 		JComboBox comboBox = new JComboBox(list);
 		comboBox.setBounds(1430, 25, 90, 20);
 		comboBox.addActionListener(new ActionListener() {
@@ -148,16 +164,78 @@ public class Home extends JFrame implements ActionListener {
 				if (comboBox.getItemAt(comboBox.getSelectedIndex()) == "Đăng xuất") {
 					System.exit(1);
 				}
+				if (comboBox.getItemAt(comboBox.getSelectedIndex()) == "Làm mới trang") {
+					newsfeedPanel.removeAll();
+					try {
+						Connection cnn = DriverManager.getConnection(DB_URL, USER_NAME, PASSWORD);
+						String updateQuery = "select* from post inner join user on user.userId = post.userId";
+						PreparedStatement ps = cnn.prepareStatement(updateQuery);
+						ResultSet results = ps.executeQuery(updateQuery);
+						while(results.next()) {
+							JPanel post = new JPanel();
+							post.setMaximumSize(new Dimension(2160,200));
+							post.setBackground(new Color(255, 228, 225));
+							newsfeedPanel.add(post);
+							
+							JLabel AvatarImage = new JLabel("Avatar");
+							AvatarImage.setFont(new Font("Tahoma", Font.PLAIN, 30));
+							
+							JLabel usernamePost;
+							
+							usernamePost = new JLabel(results.getString("username"));
+							
+							usernamePost.setFont(new Font("October Twilight", Font.PLAIN, 15));
+							usernamePost.setForeground(new Color(242, 141, 156));		
+							
+							JLabel date = new JLabel(results.getString("time"));
+							date.setFont(new Font("Tahoma", Font.PLAIN, 15));
+							
+							JLabel content = new JLabel(results.getString("content"));
+							content.setBackground(new Color(255, 250, 250));
+							content.setFont(new Font("Tahoma", Font.PLAIN, 15));
+							content.setBorder(new LineBorder(new Color(178, 34, 34), 2));
+							
+							GroupLayout gl_post = new GroupLayout(post);
+							gl_post.setHorizontalGroup(
+								gl_post.createParallelGroup(Alignment.LEADING)
+									.addGroup(gl_post.createSequentialGroup()
+										.addContainerGap()
+										.addComponent(AvatarImage, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(ComponentPlacement.RELATED)
+										.addGroup(gl_post.createParallelGroup(Alignment.LEADING)
+											.addGroup(gl_post.createSequentialGroup()
+												.addComponent(usernamePost, GroupLayout.PREFERRED_SIZE, 108, GroupLayout.PREFERRED_SIZE)
+												.addPreferredGap(ComponentPlacement.RELATED)
+												.addComponent(date, 0, 0, Short.MAX_VALUE))
+											.addComponent(content, GroupLayout.DEFAULT_SIZE, 962, Short.MAX_VALUE))
+										.addContainerGap())
+							);
+							gl_post.setVerticalGroup(
+								gl_post.createParallelGroup(Alignment.LEADING)
+									.addGroup(gl_post.createSequentialGroup()
+										.addContainerGap()
+										.addGroup(gl_post.createParallelGroup(Alignment.LEADING)
+											.addGroup(gl_post.createSequentialGroup()
+												.addGroup(gl_post.createParallelGroup(Alignment.BASELINE)
+													.addComponent(usernamePost)
+													.addComponent(date, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE))
+												.addPreferredGap(ComponentPlacement.RELATED)
+												.addComponent(content, GroupLayout.PREFERRED_SIZE, 148, Short.MAX_VALUE))
+											.addComponent(AvatarImage, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE))
+										.addContainerGap())
+							);
+							post.setLayout(gl_post);
+						}
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+				}
 			}
 		
 		});
 		headerPane.add(comboBox);
 		
-		JPanel mainPane = new JPanel();
-		mainPane.setBackground(new Color(255, 228, 225));
-		mainPane.setBounds(5, 72, 1543, 864);
-		contentPane.add(mainPane);
-		mainPane.setLayout(null);
+		
 		
 		JLabel labelClock = new JLabel();
 		labelClock.setHorizontalAlignment(SwingConstants.CENTER);
@@ -230,69 +308,9 @@ public class Home extends JFrame implements ActionListener {
 		postButton.setBounds(1006, 35, 81, 47);
 		postPane.add(postButton);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.setBounds(215, 137, 1097, 661);
-		mainPane.add(scrollPane);
 		
-		JPanel newsfeedPanel = new JPanel();
-		scrollPane.setViewportView(newsfeedPanel);
-		newsfeedPanel.setBackground(new Color(242, 141, 156));
-		newsfeedPanel.setLayout(new BoxLayout(newsfeedPanel, BoxLayout.Y_AXIS));
-		
-		JPanel post = new JPanel();
-		post.setMaximumSize(new Dimension(2160,200));
-		post.setBackground(new Color(255, 228, 225));
-		newsfeedPanel.add(post);
-		
-		JLabel AvatarImage = new JLabel("Avatar");
-		AvatarImage.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		
-		JLabel usernamePost;
-		usernamePost = new JLabel(username);
-		usernamePost.setFont(new Font("October Twilight", Font.PLAIN, 15));
-		usernamePost.setForeground(new Color(242, 141, 156));		
-		
-		JLabel date = new JLabel("date");
-		date.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		
-		JLabel content = new JLabel("content");
-		content.setBackground(new Color(255, 250, 250));
-		content.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		content.setBorder(new LineBorder(new Color(178, 34, 34), 2));
-		
-		GroupLayout gl_post = new GroupLayout(post);
-		gl_post.setHorizontalGroup(
-			gl_post.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_post.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(AvatarImage, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_post.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_post.createSequentialGroup()
-							.addComponent(usernamePost, GroupLayout.PREFERRED_SIZE, 108, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(date, 0, 0, Short.MAX_VALUE))
-						.addComponent(content, GroupLayout.DEFAULT_SIZE, 962, Short.MAX_VALUE))
-					.addContainerGap())
-		);
-		gl_post.setVerticalGroup(
-			gl_post.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_post.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_post.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_post.createSequentialGroup()
-							.addGroup(gl_post.createParallelGroup(Alignment.BASELINE)
-								.addComponent(usernamePost)
-								.addComponent(date, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(content, GroupLayout.PREFERRED_SIZE, 148, Short.MAX_VALUE))
-						.addComponent(AvatarImage, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap())
-		);
-		post.setLayout(gl_post);
-		
+		//from here
+		//to here
 		setVisible(true);
 	}
 
