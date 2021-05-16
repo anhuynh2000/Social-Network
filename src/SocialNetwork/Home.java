@@ -29,6 +29,16 @@ import java.awt.FlowLayout;
 import javax.swing.JTextPane;
 import javax.swing.JComboBox;
 import java.awt.Color;
+import javax.swing.JScrollBar;
+import net.miginfocom.swing.MigLayout;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.RowSpec;
+import java.awt.GridLayout;
+import javax.swing.BoxLayout;
+import javax.swing.ScrollPaneConstants;
+import java.awt.CardLayout;
+import java.awt.Component;
 
 @SuppressWarnings("serial")
 public class Home extends JFrame implements ActionListener {
@@ -120,7 +130,7 @@ public class Home extends JFrame implements ActionListener {
 		panel_3.add(textPane);
 		
 		JTextPane textPane_1 = new JTextPane();
-		textPane_1.setBounds(0, 450, 200, 200);
+		textPane_1.setBounds(0, 450, 200, 260);
 		panel_3.add(textPane_1);
 		
 		JTextPane textPane_2 = new JTextPane();
@@ -147,10 +157,38 @@ public class Home extends JFrame implements ActionListener {
 		btnNewButton_1.setBounds(1031, 82, 39, 35);
 		panel_4.add(btnNewButton_1);
 		
-		JPanel panel_5 = new JPanel();
-		panel_5.setBackground(new Color(255, 228, 225));
-		panel_5.setBounds(210, 140, 1070, 570);
-		panel_3.add(panel_5);
+		JScrollPane scrollPostPanel = new JScrollPane();
+		scrollPostPanel.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPostPanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPostPanel.setBounds(210, 137, 1070, 573);
+		scrollPostPanel.setPreferredSize(new Dimension(1047,500));
+		panel_3.add(scrollPostPanel);
+		
+		JPanel postPanel = new JPanel();
+		scrollPostPanel.setViewportView(postPanel);
+		postPanel.setBackground(new Color(255, 228, 225));
+		postPanel.setLayout(new BoxLayout(postPanel, BoxLayout.Y_AXIS));
+		postPanel.setMinimumSize(new Dimension(1047,2500));
+		
+		JPanel post1 = new JPanel();
+		post1.setPreferredSize(new Dimension(1047,500));
+		postPanel.add(post1);
+		
+		JPanel post2 = new JPanel();
+		post2.setPreferredSize(new Dimension(1047,500));
+		postPanel.add(post2);
+		
+		JPanel post3 = new JPanel();
+		post3.setPreferredSize(new Dimension(1047,500));
+		postPanel.add(post3);
+		
+		JPanel post4 = new JPanel();
+		post4.setPreferredSize(new Dimension(1047,500));
+		postPanel.add(post4);
+		
+		JPanel post5 = new JPanel();
+		post5.setPreferredSize(new Dimension(1047,500));
+		postPanel.add(post5);
 		
 		setVisible(true);
 	}

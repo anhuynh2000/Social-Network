@@ -194,19 +194,49 @@ public class Registration_Interface extends JFrame implements ActionListener {
 			String firstName = fnameField.getText();
 			String lastName = lnameField.getText();
 			String email = emailField.getText();
+			boolean flag_user = true;
+			boolean flag_email = true;
+			boolean flag = true;
 			
 			try {
 				Connection cnn = DriverManager.getConnection(DB_URL, USER_NAME, PASSWORD);
-				String updateQuery = "INSERT INTO user (username,firstName,lastName,email,password) VALUES (?,?,?,?,?)";
-				PreparedStatement ps = cnn.prepareStatement(updateQuery);
+				String checkQuery = "SELECT username,email FROM user";
+				PreparedStatement psCheck = cnn.prepareStatement(checkQuery);
+				ResultSet results = psCheck.executeQuery(checkQuery);
 				
-				ps.setString(1, username);
-				ps.setString(2, firstName);
-				ps.setString(3, lastName);
-				ps.setString(4, email);
-				ps.setString(5, password);
+				while (results.next()) {
+					String userName = results.getString("username");
+			        String eMail =  results.getString("email");
+
+			       if (username.equals(userName)) {
+			    	   flag_user = false;
+			    	   break;
+			       }
+			       if (email.equals(eMail)) {
+			    	   flag_email = false;
+			    	   break;
+			       }
+				}
+		       if(flag_user == true) {
+		    	   if(flag_email == true) {
+		    		   String updateQuery = "INSERT INTO user (username,firstName,lastName,email,password) VALUES (?,?,?,?,?)";
+						PreparedStatement ps = cnn.prepareStatement(updateQuery);
+						ps.setString(1, username);
+						ps.setString(2, firstName);
+						ps.setString(3, lastName);
+						ps.setString(4, email);
+						ps.setString(5, password);
+						
+						ps.executeUpdate();
+						
+						JOptionPane.showMessageDialog(passwordField, "Register successfully.");
+		    	   } else {
+		    		   JOptionPane.showMessageDialog(passwordField, "Email is already used.");
+		    	   }
+		       } else {
+		    	   JOptionPane.showMessageDialog(passwordField, "Username is already used.");
+		       }
 				
-				ps.executeUpdate();
 				
 			} catch (SQLException e1) {
 				e1.printStackTrace();
