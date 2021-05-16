@@ -196,7 +196,7 @@ public class Login extends JFrame implements ActionListener {
 		}
 		
 		if (e.getSource() == Register) {
-			Registration_Interface registration = new Registration_Interface();
+			Registration registration = new Registration();
 			registration.setVisible(true);
 			dispose();
 		}

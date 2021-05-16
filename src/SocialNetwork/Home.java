@@ -21,6 +21,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.AncestorListener;
 import javax.swing.GroupLayout;
@@ -35,9 +36,11 @@ import javax.swing.JTextPane;
 import javax.swing.JComboBox;
 import java.awt.Color;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.border.LineBorder;
 
 @SuppressWarnings("serial")
 public class Home extends JFrame implements ActionListener {
@@ -119,6 +122,9 @@ public class Home extends JFrame implements ActionListener {
 		
 		JButton btnNewButton = new JButton("Search");
 		btnNewButton.setBounds(1100, 23, 70, 25);
+		btnNewButton.setForeground(new Color(255, 245, 238));
+		btnNewButton.setBackground(new Color(178, 34, 34));
+		btnNewButton.setFont(new Font("October Twilight", Font.PLAIN, 10));
 		headerPane.add(btnNewButton);
 		
 		JLabel lblNewLabel_1 = new JLabel("Avatar");
@@ -136,7 +142,6 @@ public class Home extends JFrame implements ActionListener {
 		String list[] = {"Đổi mật khẩu", "Đăng xuất"};
 
 		JComboBox comboBox = new JComboBox(list);
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Đổi mật khẩu\t", "Đăng xuất"}));
 		comboBox.setBounds(1430, 25, 90, 20);
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -196,8 +201,9 @@ public class Home extends JFrame implements ActionListener {
 		postPane.add(avaterImage);
 		
 		JButton postButton = new JButton("Post");
-		postButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		postButton.setActionCommand(">");
+		postButton.setForeground(new Color(255, 245, 238));
+		postButton.setBackground(new Color(178, 34, 34));
+		postButton.setFont(new Font("October Twilight", Font.PLAIN, 15));
 		postButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -237,20 +243,24 @@ public class Home extends JFrame implements ActionListener {
 		
 		JPanel post = new JPanel();
 		post.setMaximumSize(new Dimension(2160,200));
+		post.setBackground(new Color(255, 228, 225));
 		newsfeedPanel.add(post);
 		
 		JLabel AvatarImage = new JLabel("Avatar");
 		AvatarImage.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		
 		JLabel usernamePost;
-		usernamePost = new JLabel("username");
-		usernamePost.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		usernamePost = new JLabel(username);
+		usernamePost.setFont(new Font("October Twilight", Font.PLAIN, 15));
+		usernamePost.setForeground(new Color(242, 141, 156));		
 		
 		JLabel date = new JLabel("date");
 		date.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
 		JLabel content = new JLabel("content");
+		content.setBackground(new Color(255, 250, 250));
 		content.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		content.setBorder(new LineBorder(new Color(178, 34, 34), 2));
 		
 		GroupLayout gl_post = new GroupLayout(post);
 		gl_post.setHorizontalGroup(
@@ -258,16 +268,14 @@ public class Home extends JFrame implements ActionListener {
 				.addGroup(gl_post.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(AvatarImage, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_post.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_post.createSequentialGroup()
 							.addComponent(usernamePost, GroupLayout.PREFERRED_SIZE, 108, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(date, 0, 0, Short.MAX_VALUE)
-							.addGap(746))
-						.addGroup(gl_post.createSequentialGroup()
-							.addComponent(content, GroupLayout.DEFAULT_SIZE, 958, Short.MAX_VALUE)
-							.addContainerGap())))
+							.addComponent(date, 0, 0, Short.MAX_VALUE))
+						.addComponent(content, GroupLayout.DEFAULT_SIZE, 962, Short.MAX_VALUE))
+					.addContainerGap())
 		);
 		gl_post.setVerticalGroup(
 			gl_post.createParallelGroup(Alignment.LEADING)
@@ -277,9 +285,9 @@ public class Home extends JFrame implements ActionListener {
 						.addGroup(gl_post.createSequentialGroup()
 							.addGroup(gl_post.createParallelGroup(Alignment.BASELINE)
 								.addComponent(usernamePost)
-								.addComponent(date))
+								.addComponent(date, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE))
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(content, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE))
+							.addComponent(content, GroupLayout.PREFERRED_SIZE, 148, Short.MAX_VALUE))
 						.addComponent(AvatarImage, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap())
 		);
