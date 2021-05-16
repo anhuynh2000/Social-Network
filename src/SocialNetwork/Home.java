@@ -136,7 +136,7 @@ public class Home extends JFrame implements ActionListener {
 		JLabel usernameDisplay = new JLabel(username);
 		usernameDisplay.setFont(new Font("October Twilight", Font.PLAIN, 25));
 		usernameDisplay.setForeground(new Color(242, 141, 156));
-		usernameDisplay.setBounds(1330, 5, 110, 50);
+		usernameDisplay.setBounds(1310, 12, 110, 50);
 		headerPane.add(usernameDisplay);
 		
 		JPanel mainPane = new JPanel();
@@ -157,6 +157,7 @@ public class Home extends JFrame implements ActionListener {
 		scrollPane.setViewportView(newsfeedPanel);
 		newsfeedPanel.setBackground(new Color(242, 141, 156));
 		newsfeedPanel.setLayout(new BoxLayout(newsfeedPanel, BoxLayout.Y_AXIS));
+		
 		JComboBox comboBox = new JComboBox(list);
 		comboBox.setBounds(1430, 25, 90, 20);
 		comboBox.addActionListener(new ActionListener() {
@@ -175,6 +176,8 @@ public class Home extends JFrame implements ActionListener {
 							JPanel post = new JPanel();
 							post.setMaximumSize(new Dimension(2160,200));
 							post.setBackground(new Color(255, 228, 225));
+							post.setBorder(new LineBorder(new Color(178, 34, 34), 2));
+
 							newsfeedPanel.add(post);
 							
 							JLabel AvatarImage = new JLabel("Avatar");
@@ -220,9 +223,9 @@ public class Home extends JFrame implements ActionListener {
 													.addComponent(usernamePost)
 													.addComponent(date, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE))
 												.addPreferredGap(ComponentPlacement.RELATED)
-												.addComponent(content, GroupLayout.PREFERRED_SIZE, 148, Short.MAX_VALUE))
+												.addComponent(content, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
 											.addComponent(AvatarImage, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE))
-										.addContainerGap())
+										.addContainerGap(82, Short.MAX_VALUE))
 							);
 							post.setLayout(gl_post);
 						}
@@ -233,6 +236,8 @@ public class Home extends JFrame implements ActionListener {
 			}
 		
 		});
+		
+		
 		headerPane.add(comboBox);
 		
 		
@@ -246,10 +251,6 @@ public class Home extends JFrame implements ActionListener {
 		
 		mainPane.add(labelClock);
 
-		
-		
-		
-		
  		JTextPane textPane = new JTextPane();
 		textPane.setBounds(5, 90, 200, 326);
 		mainPane.add(textPane);
@@ -257,10 +258,20 @@ public class Home extends JFrame implements ActionListener {
 		JTextPane textPane_1 = new JTextPane();
 		textPane_1.setBounds(5, 450, 200, 348);
 		mainPane.add(textPane_1);
+		try {
+			cnn = DriverManager.getConnection(DB_URL, USER_NAME, PASSWORD);
+			String updateQuery = "SELECT username FROM user";
+			PreparedStatement ps = cnn.prepareStatement(updateQuery);
+			ResultSet results = ps.executeQuery(updateQuery);
+			while (results.next()) {
+				username = results.getString("username");
+			}
+			
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
-		JTextPane textPane_2 = new JTextPane();
-		textPane_2.setBounds(1322, 10, 200, 788);
-		mainPane.add(textPane_2);
 		
 		JPanel postPane = new JPanel();
 		postPane.setBackground(new Color(242, 141, 156));
@@ -307,6 +318,10 @@ public class Home extends JFrame implements ActionListener {
 		});
 		postButton.setBounds(1006, 35, 81, 47);
 		postPane.add(postButton);
+		
+		JPanel friendPane = new JPanel();
+		friendPane.setBounds(1322, 10, 200, 775);
+		mainPane.add(friendPane);
 		
 		
 		//from here
