@@ -11,6 +11,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
@@ -110,19 +111,48 @@ public class Registration extends JFrame {
 				String firstName = firstnameField.getText();
 				String lastName = lastnameField.getText();
 				String email = emailField.getText();
+				boolean flag_user = true;
+				boolean flag_email = true;
+				
 				
 				try {
 					Connection cnn = DriverManager.getConnection(DB_URL, USER_NAME, PASSWORD);
-					String updateQuery = "INSERT INTO user (username,firstName,lastName,email,password) VALUES (?,?,?,?,?)";
-					PreparedStatement ps = cnn.prepareStatement(updateQuery);
+					String checkQuery = "SELECT username,email FROM user";
+					PreparedStatement psCheck = cnn.prepareStatement(checkQuery);
+					ResultSet results = psCheck.executeQuery(checkQuery);
 					
-					ps.setString(1, username);
-					ps.setString(2, firstName);
-					ps.setString(3, lastName);
-					ps.setString(4, email);
-					ps.setString(5, password);
-					
-					ps.executeUpdate();
+					while (results.next()) {
+						String userName = results.getString("username");
+				        String eMail =  results.getString("email");
+
+				       if (username.equals(userName)) {
+				    	   flag_user = false;
+				    	   break;
+				       }
+				       if (email.equals(eMail)) {
+				    	   flag_email = false;
+				    	   break;
+				       }
+					}
+			       if(flag_user == true) {
+			    	   if(flag_email == true) {
+			    		   	String updateQuery = "INSERT INTO user (username,firstName,lastName,email,password) VALUES (?,?,?,?,?)";
+							PreparedStatement ps = cnn.prepareStatement(updateQuery);
+							ps.setString(1, username);
+							ps.setString(2, firstName);
+							ps.setString(3, lastName);
+							ps.setString(4, email);
+							ps.setString(5, password);
+							
+							ps.executeUpdate();
+							
+							JOptionPane.showMessageDialog(passwordField, "Register successfully.");
+			    	   } else {
+			    		   JOptionPane.showMessageDialog(passwordField, "Email is already used.");
+			    	   }
+			       } else {
+			    	   JOptionPane.showMessageDialog(passwordField, "Username is already used.");
+			       }
 					
 				} catch (SQLException e1) {
 					e1.printStackTrace();

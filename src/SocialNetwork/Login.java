@@ -172,28 +172,23 @@ public class Login extends JFrame implements ActionListener {
 			        String userName = results.getString("username");
 			        String passWord =  results.getString("password");
 
-			       if (username.equals(userName)) {
-			    	   flag_user = true;
-			       }
-			       if (password.equals(passWord)) {
-			    	   flag_pass = true;
-			       }
-			       
-		           if (flag_user) {
+			        if (password.equals(passWord) && username.equals(userName)) {
+				    	   flag_pass = true;
+				    	   flag_user = true;
+				    	   break;
+				       }
+					}
+				if (flag_user) {
 		        	   if (flag_pass) {
-//		        		   JOptionPane.showMessageDialog(passwordField, "Your username and password exist.");
-		        		   Home home = new Home(results.getString("userName"));
+		        		   JOptionPane.showMessageDialog(passwordField, "Login successfully.");
+		        		   Home home = new Home(results.getString("userId"));
 			        	   home.setVisible(true);
 			        	   dispose();
-//		        	   } else {
-//		        		   JOptionPane.showMessageDialog(passwordField, "Please check your password.");
+			        	   
 		        	   }
-//			        } else {
-//			        	JOptionPane.showMessageDialog(passwordField, "Please check your username and password.");
+			        } else {
+			        	JOptionPane.showMessageDialog(passwordField, "Please check your username and password.");
 			        }
-			        
-				}
-				results.close();
 				
 			} catch (SQLException e1) {
 				e1.printStackTrace();

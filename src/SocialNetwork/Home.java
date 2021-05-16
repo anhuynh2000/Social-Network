@@ -34,6 +34,9 @@ import javax.swing.JTextPane;
 import javax.swing.JComboBox;
 import java.awt.Color;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.BoxLayout;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 @SuppressWarnings("serial")
 public class Home extends JFrame implements ActionListener {
@@ -75,60 +78,60 @@ public class Home extends JFrame implements ActionListener {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JPanel panel = new JPanel();
-		panel.setBackground(new Color(255, 228, 225));
-		panel.setBounds(5, 5, 1543, 67);
-		contentPane.add(panel);
-		panel.setLayout(null);
+		JPanel headerPane = new JPanel();
+		headerPane.setBackground(new Color(255, 228, 225));
+		headerPane.setBounds(5, 5, 1543, 67);
+		contentPane.add(headerPane);
+		headerPane.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setBounds(5, 5, 199, 57);
 		lblNewLabel.setIcon(new ImageIcon(Home.class.getResource("/SocialNetwork/Image/Logo_title.png")));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
-		panel.add(lblNewLabel);
+		headerPane.add(lblNewLabel);
 		
 		textField = new JTextField();
 		textField.setBounds(269, 22, 815, 23);
 		textField.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		panel.add(textField);
+		headerPane.add(textField);
 		textField.setColumns(75);
 		
 		JButton btnNewButton = new JButton("Search");
 		btnNewButton.setBounds(1100, 23, 70, 25);
-		panel.add(btnNewButton);
+		headerPane.add(btnNewButton);
 		
 		JLabel lblNewLabel_1 = new JLabel("Avatar");
 		lblNewLabel_1.setBounds(1198, 13, 87, 37);
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.LEFT);
-		panel.add(lblNewLabel_1);
+		headerPane.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel(userName);
 		lblNewLabel_2.setFont(new Font("October Twilight", Font.PLAIN, 25));
 		lblNewLabel_2.setForeground(new Color(242, 141, 156));
 		lblNewLabel_2.setBounds(1330, 5, 110, 50);
-		panel.add(lblNewLabel_2);
+		headerPane.add(lblNewLabel_2);
 		
-		String list[] = {"Ä�á»•i máº­t kháº©u", "Ä�Äƒng xuáº¥t"};
+		String list[] = {"Đổi mật khẩu", "Đăng xuất"};
 
 		JComboBox comboBox = new JComboBox(list);
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Đổi mật khẩu\t", "Đăng xuất"}));
 		comboBox.setBounds(1430, 25, 90, 20);
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (comboBox.getItemAt(comboBox.getSelectedIndex()) == "Ä�Äƒng xuáº¥t") {
+				if (comboBox.getItemAt(comboBox.getSelectedIndex()) == "Đăng xuất") {
 					System.exit(1);
 				}
 			}
 		
 		});
-		panel.add(comboBox);
+		headerPane.add(comboBox);
 		
-		JPanel panel_3 = new JPanel();
-		panel_3.setBackground(new Color(255, 228, 225));
-		panel_3.setBounds(5, 72, 1543, 864);
-		contentPane.add(panel_3);
-		panel_3.setLayout(null);
+		JPanel mainPane = new JPanel();
+		mainPane.setBackground(new Color(255, 228, 225));
+		mainPane.setBounds(5, 72, 1543, 864);
+		contentPane.add(mainPane);
+		mainPane.setLayout(null);
 		
 		JLabel labelClock = new JLabel();
 		labelClock.setHorizontalAlignment(SwingConstants.CENTER);
@@ -137,7 +140,7 @@ public class Home extends JFrame implements ActionListener {
 		labelClock.setBounds(0, 10, 200, 74);
 		labelClock.setVisible(true);
 		
-		panel_3.add(labelClock);
+		mainPane.add(labelClock);
 
 		
 		
@@ -145,43 +148,100 @@ public class Home extends JFrame implements ActionListener {
 		
  		JTextPane textPane = new JTextPane();
 		textPane.setBounds(5, 90, 200, 326);
-		panel_3.add(textPane);
+		mainPane.add(textPane);
 		
 		JTextPane textPane_1 = new JTextPane();
 		textPane_1.setBounds(5, 450, 200, 348);
-		panel_3.add(textPane_1);
+		mainPane.add(textPane_1);
 		
 		JTextPane textPane_2 = new JTextPane();
 		textPane_2.setBounds(1322, 10, 200, 788);
-		panel_3.add(textPane_2);
+		mainPane.add(textPane_2);
 		
-		JPanel panel_4 = new JPanel();
-		panel_4.setBackground(new Color(242, 141, 156));
-		panel_4.setBounds(215, 10, 1097, 117);
-		panel_3.add(panel_4);
-		panel_4.setLayout(null);
+		JPanel postPane = new JPanel();
+		postPane.setBackground(new Color(242, 141, 156));
+		postPane.setBounds(215, 10, 1097, 117);
+		mainPane.add(postPane);
+		postPane.setLayout(null);
 		
 		textField_1 = new JTextField();
 		textField_1.setBounds(110, 10, 900, 97);
-		panel_4.add(textField_1);
+		postPane.add(textField_1);
 		textField_1.setColumns(10);
 		
 		JLabel lblNewLabel_3 = new JLabel("Avatar");
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		lblNewLabel_3.setBounds(10, 10, 90, 97);
-		panel_4.add(lblNewLabel_3);
+		postPane.add(lblNewLabel_3);
 		
 		JButton btnNewButton_1 = new JButton(">");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		btnNewButton_1.setBounds(1036, 82, 39, 35);
-		panel_4.add(btnNewButton_1);
+		postPane.add(btnNewButton_1);
 		
 		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setBounds(215, 137, 1097, 661);
-		panel_3.add(scrollPane);
+		mainPane.add(scrollPane);
 		
 		JPanel newsfeedPanel = new JPanel();
 		scrollPane.setViewportView(newsfeedPanel);
 		newsfeedPanel.setBackground(new Color(242, 141, 156));
+		newsfeedPanel.setLayout(new BoxLayout(newsfeedPanel, BoxLayout.Y_AXIS));
+		
+		JPanel post = new JPanel();
+		post.setMaximumSize(new Dimension(2160,200));
+		newsfeedPanel.add(post);
+		
+		JLabel AvatarImage = new JLabel("Avatar");
+		AvatarImage.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		
+		JLabel username = new JLabel("username");
+		username.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		
+		JLabel date = new JLabel("date");
+		date.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		
+		JLabel content = new JLabel("content");
+		content.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		
+		GroupLayout gl_post = new GroupLayout(post);
+		gl_post.setHorizontalGroup(
+			gl_post.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_post.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(AvatarImage, GroupLayout.PREFERRED_SIZE, 90, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_post.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_post.createSequentialGroup()
+							.addComponent(username, GroupLayout.PREFERRED_SIZE, 108, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(date, 0, 0, Short.MAX_VALUE)
+							.addGap(746))
+						.addGroup(gl_post.createSequentialGroup()
+							.addComponent(content, GroupLayout.DEFAULT_SIZE, 958, Short.MAX_VALUE)
+							.addContainerGap())))
+		);
+		gl_post.setVerticalGroup(
+			gl_post.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_post.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_post.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_post.createSequentialGroup()
+							.addGroup(gl_post.createParallelGroup(Alignment.BASELINE)
+								.addComponent(username)
+								.addComponent(date))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(content, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE))
+						.addComponent(AvatarImage, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap())
+		);
+		post.setLayout(gl_post);
 		
 		setVisible(true);
 	}

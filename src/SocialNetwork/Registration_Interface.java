@@ -221,6 +221,7 @@ public class Registration_Interface extends JFrame implements ActionListener {
 		    	   if(flag_email == true) {
 		    		   String updateQuery = "INSERT INTO user (username,firstName,lastName,email,password) VALUES (?,?,?,?,?)";
 						PreparedStatement ps = cnn.prepareStatement(updateQuery);
+						
 						ps.setString(1, username);
 						ps.setString(2, firstName);
 						ps.setString(3, lastName);
