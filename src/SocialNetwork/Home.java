@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.awt.event.WindowAdapter;
@@ -41,11 +42,15 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 @SuppressWarnings("serial")
 public class Home extends JFrame implements ActionListener {
 
-	private String userName;
+	private static String DB_URL = "jdbc:mysql://localhost:3306/social_network";
+	private static String USER_NAME = "sa";
+	private static String PASSWORD = "abcd1234";
+	private String userId;
 	private JPanel contentPane;
 	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField postField;
 	private JLabel labelClock;
+	private JLabel usernamePost;
 
 	/**
 	 * Launch the application.
@@ -54,7 +59,7 @@ public class Home extends JFrame implements ActionListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Home frame = new Home(userName);
+					Home frame = new Home(userId);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -67,7 +72,23 @@ public class Home extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	@SuppressWarnings("deprecation")
-	public Home(String userName) {
+	public Home(String userId) {
+		String username = null;
+		Connection cnn;
+		try {
+			cnn = DriverManager.getConnection(DB_URL, USER_NAME, PASSWORD);
+			String updateQuery = "SELECT username FROM user where userId="+userId;
+			PreparedStatement ps = cnn.prepareStatement(updateQuery);
+			ResultSet results = ps.executeQuery(updateQuery);
+			while (results.next()) {
+				username = results.getString("username");
+			}
+			
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		setUndecorated(true);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -106,11 +127,11 @@ public class Home extends JFrame implements ActionListener {
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.LEFT);
 		headerPane.add(lblNewLabel_1);
 		
-		JLabel lblNewLabel_2 = new JLabel(userName);
-		lblNewLabel_2.setFont(new Font("October Twilight", Font.PLAIN, 25));
-		lblNewLabel_2.setForeground(new Color(242, 141, 156));
-		lblNewLabel_2.setBounds(1330, 5, 110, 50);
-		headerPane.add(lblNewLabel_2);
+		JLabel usernameDisplay = new JLabel(username);
+		usernameDisplay.setFont(new Font("October Twilight", Font.PLAIN, 25));
+		usernameDisplay.setForeground(new Color(242, 141, 156));
+		usernameDisplay.setBounds(1330, 5, 110, 50);
+		headerPane.add(usernameDisplay);
 		
 		String list[] = {"Đổi mật khẩu", "Đăng xuất"};
 
@@ -164,24 +185,44 @@ public class Home extends JFrame implements ActionListener {
 		mainPane.add(postPane);
 		postPane.setLayout(null);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(110, 10, 900, 97);
-		postPane.add(textField_1);
-		textField_1.setColumns(10);
+		postField = new JTextField();
+		postField.setBounds(110, 10, 886, 97);
+		postPane.add(postField);
+		postField.setColumns(10);
 		
-		JLabel lblNewLabel_3 = new JLabel("Avatar");
-		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		lblNewLabel_3.setBounds(10, 10, 90, 97);
-		postPane.add(lblNewLabel_3);
+		JLabel avaterImage = new JLabel("Avatar");
+		avaterImage.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		avaterImage.setBounds(10, 10, 90, 97);
+		postPane.add(avaterImage);
 		
-		JButton btnNewButton_1 = new JButton(">");
-		btnNewButton_1.addActionListener(new ActionListener() {
+		JButton postButton = new JButton("Post");
+		postButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		postButton.setActionCommand(">");
+		postButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				try {
+					Connection cnn = DriverManager.getConnection(DB_URL, USER_NAME, PASSWORD);
+					String updateQuery = "Insert into post (time, content, userId) values (?,?,?)";
+					
+					PreparedStatement ps = cnn.prepareStatement(updateQuery);
+					java.util.Date dt = new java.util.Date();
+
+					java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+					String currentTime = sdf.format(dt);
+					ps.setString(1, currentTime);
+					ps.setString(2, postField.getText());
+					ps.setString(3, userId);
+					ps.executeUpdate();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				
 			}
 		});
-		btnNewButton_1.setBounds(1036, 82, 39, 35);
-		postPane.add(btnNewButton_1);
+		postButton.setBounds(1006, 35, 81, 47);
+		postPane.add(postButton);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -201,8 +242,9 @@ public class Home extends JFrame implements ActionListener {
 		JLabel AvatarImage = new JLabel("Avatar");
 		AvatarImage.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		
-		JLabel username = new JLabel("username");
-		username.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		JLabel usernamePost;
+		usernamePost = new JLabel("username");
+		usernamePost.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
 		JLabel date = new JLabel("date");
 		date.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -219,7 +261,7 @@ public class Home extends JFrame implements ActionListener {
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_post.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_post.createSequentialGroup()
-							.addComponent(username, GroupLayout.PREFERRED_SIZE, 108, GroupLayout.PREFERRED_SIZE)
+							.addComponent(usernamePost, GroupLayout.PREFERRED_SIZE, 108, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(date, 0, 0, Short.MAX_VALUE)
 							.addGap(746))
@@ -234,7 +276,7 @@ public class Home extends JFrame implements ActionListener {
 					.addGroup(gl_post.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_post.createSequentialGroup()
 							.addGroup(gl_post.createParallelGroup(Alignment.BASELINE)
-								.addComponent(username)
+								.addComponent(usernamePost)
 								.addComponent(date))
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(content, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE))
