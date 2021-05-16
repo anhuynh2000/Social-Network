@@ -33,6 +33,7 @@ import java.awt.FlowLayout;
 import javax.swing.JTextPane;
 import javax.swing.JComboBox;
 import java.awt.Color;
+import javax.swing.DefaultComboBoxModel;
 
 @SuppressWarnings("serial")
 public class Home extends JFrame implements ActionListener {
@@ -108,13 +109,14 @@ public class Home extends JFrame implements ActionListener {
 		lblNewLabel_2.setBounds(1330, 5, 110, 50);
 		panel.add(lblNewLabel_2);
 		
-		String list[] = {"Đổi mật khẩu", "Đăng xuất"};
+		String list[] = {"Ä�á»•i máº­t kháº©u", "Ä�Äƒng xuáº¥t"};
 
 		JComboBox comboBox = new JComboBox(list);
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Đổi mật khẩu\t", "Đăng xuất"}));
 		comboBox.setBounds(1430, 25, 90, 20);
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (comboBox.getItemAt(comboBox.getSelectedIndex()) == "Đăng xuất") {
+				if (comboBox.getItemAt(comboBox.getSelectedIndex()) == "Ä�Äƒng xuáº¥t") {
 					System.exit(1);
 				}
 			}
@@ -173,10 +175,13 @@ public class Home extends JFrame implements ActionListener {
 		btnNewButton_1.setBounds(1036, 82, 39, 35);
 		panel_4.add(btnNewButton_1);
 		
-		JPanel panel_5 = new JPanel();
-		panel_5.setBackground(new Color(242, 141, 156));
-		panel_5.setBounds(215, 140, 1097, 666);
-		panel_3.add(panel_5);
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(215, 137, 1097, 661);
+		panel_3.add(scrollPane);
+		
+		JPanel newsfeedPanel = new JPanel();
+		scrollPane.setViewportView(newsfeedPanel);
+		newsfeedPanel.setBackground(new Color(242, 141, 156));
 		
 		setVisible(true);
 	}
