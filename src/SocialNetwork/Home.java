@@ -160,6 +160,8 @@ public class Home extends JFrame implements ActionListener {
 		
 		JComboBox comboBox = new JComboBox(list);
 		comboBox.setBounds(1430, 25, 90, 20);
+		
+		
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (comboBox.getItemAt(comboBox.getSelectedIndex()) == "Đăng xuất") {
@@ -169,7 +171,7 @@ public class Home extends JFrame implements ActionListener {
 					newsfeedPanel.removeAll();
 					try {
 						Connection cnn = DriverManager.getConnection(DB_URL, USER_NAME, PASSWORD);
-						String updateQuery = "select* from post inner join user on user.userId = post.userId";
+						String updateQuery = "select* from post inner join user on user.userId = post.userId order by postId desc";
 						PreparedStatement ps = cnn.prepareStatement(updateQuery);
 						ResultSet results = ps.executeQuery(updateQuery);
 						while(results.next()) {
@@ -223,9 +225,9 @@ public class Home extends JFrame implements ActionListener {
 													.addComponent(usernamePost)
 													.addComponent(date, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE))
 												.addPreferredGap(ComponentPlacement.RELATED)
-												.addComponent(content, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE))
+												.addComponent(content, GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE))
 											.addComponent(AvatarImage, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE))
-										.addContainerGap(82, Short.MAX_VALUE))
+										.addContainerGap())
 							);
 							post.setLayout(gl_post);
 						}
@@ -322,6 +324,61 @@ public class Home extends JFrame implements ActionListener {
 		JPanel friendPane = new JPanel();
 		friendPane.setBounds(1322, 10, 200, 775);
 		mainPane.add(friendPane);
+		friendPane.setLayout(new BoxLayout(friendPane, BoxLayout.Y_AXIS));		
+		
+		try {
+			cnn = DriverManager.getConnection(DB_URL, USER_NAME, PASSWORD);
+			String updateQuery = "SELECT* FROM user";
+			PreparedStatement ps = cnn.prepareStatement(updateQuery);
+			ResultSet results = ps.executeQuery(updateQuery);
+			while (results.next()) {
+				JPanel friend = new JPanel();
+				friend.setMaximumSize(new Dimension(400, 80));
+				friendPane.add(friend);
+				
+				JLabel usernameFriend = new JLabel(results.getString("username"));
+				usernameFriend.setFont(new Font("Tahoma", Font.PLAIN, 20));
+				JLabel firsnameFriend = new JLabel(results.getString("firstName"));
+				firsnameFriend.setFont(new Font("Tahoma", Font.PLAIN, 15));
+				JLabel lastnameFriend = new JLabel(results.getString("lastName"));
+				lastnameFriend.setFont(new Font("Tahoma", Font.PLAIN, 15));
+				JLabel emailFriend = new JLabel(results.getString("email"));
+				emailFriend.setFont(new Font("Tahoma", Font.PLAIN, 15));
+				
+				GroupLayout gl_friend = new GroupLayout(friend);
+				gl_friend.setHorizontalGroup(
+					gl_friend.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_friend.createSequentialGroup()
+							.addGroup(gl_friend.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_friend.createSequentialGroup()
+									.addComponent(firsnameFriend)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(lastnameFriend, GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE))
+								.addComponent(emailFriend, GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+								.addComponent(usernameFriend, GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE))
+							.addContainerGap())
+				);
+				gl_friend.setVerticalGroup(
+					gl_friend.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_friend.createSequentialGroup()
+							.addComponent(usernameFriend)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_friend.createParallelGroup(Alignment.BASELINE)
+								.addComponent(firsnameFriend)
+								.addComponent(lastnameFriend))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(emailFriend)
+							.addContainerGap(13, Short.MAX_VALUE))
+				);
+				friend.setLayout(gl_friend);
+			}
+			
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+			
 		
 		
 		//from here
